@@ -9,7 +9,7 @@ This is a quick script to migrate topics and posts from Discourse to Notion.
 Everything starts from a main page in Notion. This "main page" there's nothing special, it's like the first page of your blog in Discourse.
 
 - Under the main page, one page for each Discourse category will be created;
-- For each category page, will cheate another one for each category topic;
+- For each category page, will create another one for each category topic;
 - And finally, for each post found in topic, will create another page under the previously topic page created.
 
 ## Environment Variables
@@ -44,3 +44,7 @@ This script uses the [@tryfabric/martian](https://github.com/instantish/martian)
 When get the markdown from Discourse, the url of the images is not filled, receives a sha hash instead, but if checks the html content of the post, we can find this same sha hash inside a `<img>` html tag.
 
 So, to get the correct image URL, the script uses the sha hash present in markdown to find src of the image tag in html content.
+
+## Limitations
+
+It's not possible to use the benefits of some core Node.js features, like asynchronous requests. Notion API will returns an [`409`](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/409) error when trying to save multiple posts under the same page. 
